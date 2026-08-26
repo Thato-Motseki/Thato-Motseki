@@ -79,6 +79,19 @@ async function fetchAllTimeCommits(username, token, createdAt) {
   return total;
 }
 
+const DISPLAY_LANGUAGES = [
+  { name: 'PHP', color: '#a8d8ff', percentage: 14 },
+  { name: 'C#', color: '#72c7ff', percentage: 9 },
+  { name: 'C++', color: '#ff6f91', percentage: 14 },
+  { name: 'PYTHON', color: '#ffd166', percentage: 14 },
+  { name: 'JAVASCRIPT', color: '#f7d154', percentage: 12 },
+  { name: 'JAVA', color: '#ff9f68', percentage: 8 },
+  { name: 'NEXT.JS', color: '#ff8fa3', percentage: 8 },
+  { name: 'TYPESCRIPT', color: '#72c7ff', percentage: 9 },
+  { name: 'TAILWIND CSS', color: '#63d7d0', percentage: 6 },
+  { name: 'REACT.JS', color: '#8be9fd', percentage: 6 },
+];
+
 function processData(user) {
   const repos = user.repositories.nodes;
   const totalStars = repos.reduce((s, r) => s + r.stargazerCount, 0);
@@ -94,23 +107,10 @@ function processData(user) {
       langMap[name].count++;
     }
   }
-  const languages = [
-    { name: 'C', color: '#a8d8ff', percentage: 14 },
-    { name: 'C#', color: '#72c7ff', percentage: 9 },
-    { name: 'C++', color: '#ff6f91', percentage: 14 },
-    { name: 'PYTHON', color: '#ffd166', percentage: 14 },
-    { name: 'JAVASCRIPT', color: '#f7d154', percentage: 12 },
-    { name: 'JAVA', color: '#ff9f68', percentage: 8 },
-    { name: 'RUST', color: '#ff8fa3', percentage: 8 },
-    { name: 'TYPESCRIPT', color: '#72c7ff', percentage: 9 },
-    { name: 'TAILWIND CSS', color: '#63d7d0', percentage: 6 },
-    { name: 'REACT.JS', color: '#8be9fd', percentage: 6 },
-  ];
-
   const deploymentSpecs = [
-    { name: 'Ethiopian Legal Chatbot', desc: 'Accessible legal guidance powered by conversational AI', lang: 'PYTHON' },
-    { name: 'Sentinel AI', desc: 'Intelligent monitoring and threat detection platform', lang: 'PYTHON' },
-    { name: 'Market Price Predictor', desc: 'Data-driven forecasting for market price movement', lang: 'JAVASCRIPT' },
+    { name: 'Ethiopian Legal Chatbot', desc: 'An AI-powered legal chatbot designed to help users navigate Ethiopian law by providing accessible, conversational answers to legal questions using relevant legal documents and information.', lang: 'Python, HTML, CSS' },
+    { name: 'Sentinel AI', desc: 'An intelligent monitoring and threat detection platform that uses AI to identify suspicious activity, detect potential security threats, and provide real-time insights to help users respond to risks faster.', lang: 'TypeScript, JavaScript, OpenAI' },
+    { name: 'Market Price Predictor', desc: 'A data-driven forecasting platform that analyzes historical market trends and relevant data to predict potential price movements, helping users make more informed market decisions.', lang: 'React.js, Tailwind CSS, Python' },
   ];
   const topProjects = deploymentSpecs.map(spec => {
     const repo = repos.find(r => r.name.toLowerCase() === spec.name.toLowerCase());
@@ -125,23 +125,24 @@ function processData(user) {
 
   return {
     stats: { totalStars, totalForks, totalRepos, totalCommits },
-    languages,
+    languages: DISPLAY_LANGUAGES,
     topProjects,
     calendar: user.contributionsCollection.contributionCalendar,
   };
 }
 
-function generateSVG(data) {
+function generateSVG(data, bannerData) {
   const W = 800;
   const heroH = 280;
   const techH = 70;
   const statsH = 110;
   const langH = 200;
   const calH = 160;
-  const projH = 240;
+  const projH = 270;
+  const aboutH = 270;
   const footerH = 40;
   const gap = 14;
-  const totalH = heroH + techH + statsH + langH + calH + projH + footerH + gap * 6;
+  const totalH = heroH + techH + statsH + langH + calH + projH + aboutH + footerH + gap * 7;
   const font = `'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif`;
 
   let y = 0;
@@ -392,7 +393,7 @@ function generateSVG(data) {
     const baseY = y;
     const projs = data.topProjects;
     const cardW = 230;
-    const cardH = 180;
+    const cardH = 220;
     const cardGap = 16;
     const startX = (W - cardW * 3 - cardGap * 2) / 2;
     const cardColors = ['#7ee7ff', '#e8c8ff', '#ff88cc'];
@@ -404,13 +405,13 @@ function generateSVG(data) {
       const accent = cardColors[i % 3];
       const strokeRgb = accent === '#7ee7ff' ? '126,231,255' : accent === '#e8c8ff' ? '232,200,255' : '255,136,204';
 
-      // Word-wrap description into lines of max ~28 chars
-      const desc = (p.desc || '').substring(0, 90);
+      // Word-wrap descriptions to fit the expanded project cards.
+      const desc = p.desc || '';
       const words = desc.split(' ');
       const lines = [];
       let currentLine = '';
       for (const word of words) {
-        if ((currentLine + ' ' + word).trim().length > 28) {
+        if ((currentLine + ' ' + word).trim().length > 36) {
           if (currentLine) lines.push(currentLine.trim());
           currentLine = word;
         } else {
@@ -418,11 +419,11 @@ function generateSVG(data) {
         }
       }
       if (currentLine) lines.push(currentLine.trim());
-      const descLines = lines.slice(0, 3); // max 3 lines
+      const descLines = lines.slice(0, 7); // max 7 lines
 
       let descSvg = '';
       descLines.forEach((line, li) => {
-        descSvg += `<text x="${cx+18}" y="${cy+54 + li*16}" font-family="${font}" font-size="10" fill="rgba(190,190,220,0.8)" font-weight="400">${line}</text>`;
+        descSvg += `<text x="${cx+18}" y="${cy+54 + li*14}" font-family="${font}" font-size="9" fill="rgba(190,190,220,0.8)" font-weight="400">${line}</text>`;
       });
 
       cards += `
@@ -433,7 +434,7 @@ function generateSVG(data) {
         <line x1="${cx+18}" y1="${cy+cardH-56}" x2="${cx+cardW-18}" y2="${cy+cardH-56}" stroke="rgba(${strokeRgb},0.12)" stroke-width="0.6"/>
         <g transform="translate(${cx+18}, ${cy+cardH-42})">
           <circle cx="5" cy="5" r="5" fill="${accent}" opacity="0.9"/>
-          <text x="16" y="9" font-family="${font}" font-size="10" font-weight="700" fill="${accent}">${p.lang || 'N/A'}</text>
+          <text x="16" y="9" font-family="${font}" font-size="8.5" font-weight="700" fill="${accent}">${p.lang || 'N/A'}</text>
         </g>
         <g transform="translate(${cx+cardW-75}, ${cy+cardH-42})">
           <text x="0" y="9" font-family="${font}" font-size="10" fill="rgba(200,200,230,0.5)" font-weight="600">\u2605 ${p.stars}  \u2442 ${p.forks}</text>
@@ -451,6 +452,27 @@ function generateSVG(data) {
   })();
   y += projH;
 
+  // ═══════════════ ABOUT ═══════════════
+  const about = (() => {
+    const baseY = y;
+    return `
+    <g>
+      <line x1="28" y1="${baseY}" x2="772" y2="${baseY}" stroke="rgba(255,111,145,0.18)" stroke-width="0.8"/>
+      <clipPath id="about-banner-clip"><rect x="525" y="${baseY+20}" width="230" height="230" rx="16"/></clipPath>
+      <image href="data:image/png;base64,${bannerData}" x="525" y="${baseY+20}" width="230" height="230" preserveAspectRatio="xMidYMid meet" opacity="0.95" clip-path="url(#about-banner-clip)"/>
+      <text x="40" y="${baseY+24}" font-family="${font}" font-size="10" fill="rgba(126,231,255,0.85)" letter-spacing="4" font-weight="800">ABOUT ME</text>
+      <text x="40" y="${baseY+58}" font-family="${font}" font-size="10" fill="rgba(235,235,250,0.9)">I am a software developer who enjoys turning "what if?" into "let's build it."</text>
+      <text x="40" y="${baseY+84}" font-family="${font}" font-size="10" fill="rgba(205,205,230,0.82)">I spend my time experimenting with code, breaking things, and figuring out why they broke.</text>
+      <text x="40" y="${baseY+110}" font-family="${font}" font-size="10" fill="rgba(205,205,230,0.82)">I occasionally pretend the first solution was intentional. &#x1F605;</text>
+      <text x="40" y="${baseY+136}" font-family="${font}" font-size="10" fill="rgba(205,205,230,0.82)">I am interested in modern frameworks, software engineering, and building applications</text>
+      <text x="40" y="${baseY+162}" font-family="${font}" font-size="10" fill="rgba(205,205,230,0.82)">that solve real problems, not just projects that look good in a tutorial.</text>
+      <text x="40" y="${baseY+188}" font-family="${font}" font-size="10" fill="rgba(205,205,230,0.82)">I explore how systems work under the hood and learn new technologies hands-on.</text>
+      <text x="40" y="${baseY+214}" font-family="${font}" font-size="10" fill="rgba(205,205,230,0.82)">My GitHub is a development lab: projects, experiments, lessons learned, and stubborn bugs.</text>
+      <text x="40" y="${baseY+244}" font-family="${font}" font-size="12" fill="rgba(255,209,102,0.9)" font-weight="700" letter-spacing="1">CODE WITH PURPOSE. BUILD WITH IMPACT.</text>
+    </g>`;
+  })();
+  y += aboutH + gap;
+
   // ═══════════════ FINAL SVG ═══════════════
   return `<!-- T.Motseki Profile | Generated ${new Date().toISOString()} -->
 <svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${totalH}" viewBox="0 0 ${W} ${totalH}">
@@ -465,6 +487,7 @@ ${statsBlock}
 ${langs}
 ${calendar}
 ${projects}
+${about}
 <text x="400" y="${totalH-16}" text-anchor="middle" font-family="${font}" font-size="8.5" fill="rgba(255,159,104,0.55)" font-weight="600" letter-spacing="2">T.Motseki \u2022 SOFTWARE DEVELOPER</text>
 </svg>`;
 }
@@ -482,22 +505,11 @@ function mockData() {
   }
   return {
     stats: { totalStars: 12, totalForks: 5, totalRepos: 24, totalCommits: 847 },
-    languages: [
-      { name: 'C', color: '#a8d8ff', percentage: 14 },
-      { name: 'C#', color: '#72c7ff', percentage: 9 },
-      { name: 'C++', color: '#ff6f91', percentage: 14 },
-      { name: 'PYTHON', color: '#ffd166', percentage: 14 },
-      { name: 'JAVASCRIPT', color: '#f7d154', percentage: 12 },
-      { name: 'JAVA', color: '#ff9f68', percentage: 8 },
-      { name: 'RUST', color: '#ff8fa3', percentage: 8 },
-      { name: 'TYPESCRIPT', color: '#72c7ff', percentage: 9 },
-      { name: 'TAILWIND CSS', color: '#63d7d0', percentage: 6 },
-      { name: 'REACT.JS', color: '#8be9fd', percentage: 6 },
-    ],
+    languages: DISPLAY_LANGUAGES,
     topProjects: [
-      { name: 'Ethiopian Legal Chatbot', desc: 'Accessible legal guidance powered by conversational AI', stars: 0, forks: 0, lang: 'PYTHON', langColor: '#ff6f91' },
-      { name: 'Sentinel AI', desc: 'Intelligent monitoring and threat detection platform', stars: 0, forks: 0, lang: 'PYTHON', langColor: '#ff6f91' },
-      { name: 'Market Price Predictor', desc: 'Data-driven forecasting for market price movement', stars: 0, forks: 0, lang: 'JAVASCRIPT', langColor: '#ff6f91' },
+      { name: 'Ethiopian Legal Chatbot', desc: 'An AI-powered legal chatbot designed to help users navigate Ethiopian law by providing accessible, conversational answers to legal questions using relevant legal documents and information.', stars: 0, forks: 0, lang: 'Python, HTML, CSS', langColor: '#ff6f91' },
+      { name: 'Sentinel AI', desc: 'An intelligent monitoring and threat detection platform that uses AI to identify suspicious activity, detect potential security threats, and provide real-time insights to help users respond to risks faster.', stars: 0, forks: 0, lang: 'TypeScript, JavaScript, OpenAI', langColor: '#ff6f91' },
+      { name: 'Market Price Predictor', desc: 'A data-driven forecasting platform that analyzes historical market trends and relevant data to predict potential price movements, helping users make more informed market decisions.', stars: 0, forks: 0, lang: 'React.js, Tailwind CSS, Python', langColor: '#ff6f91' },
     ],
     calendar: { totalContributions: 847, weeks },
   };
@@ -528,10 +540,11 @@ const token = isProduction ? process.env.GITHUB_TOKEN : undefined;
     data = mockData();
   }
 
-  const svg = generateSVG(data);
-
   const fs = await import('node:fs');
   const path = await import('node:path');
+  const bannerPath = path.resolve(process.cwd(), '.github/assets/Banner1.png');
+  const bannerData = fs.readFileSync(bannerPath).toString('base64');
+  const svg = generateSVG(data, bannerData);
   const outDir = path.resolve(process.cwd(), '.github/assets');
   fs.mkdirSync(outDir, { recursive: true });
   const outputName = isProduction ? 'profile.svg' : 'profile.preview.svg';
