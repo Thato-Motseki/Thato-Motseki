@@ -1,5 +1,5 @@
 <!-- T.Motseki Profile | Generated 2026-08-26T14:30:50.861Z -->
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1184" viewBox="0 0 800 1184">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1400" viewBox="0 0 800 1400">
 <style>
     @font-face { font-family: 'Inter'; font-style: normal; font-weight: 400 900; font-display: swap; src: url(https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuGkyMZhrib2Bg-4.woff2) format('woff2'); }
     @keyframes drift-r { 0%, 100% { transform: translate(0,0); opacity: 0.6; } 50% { transform: translate(35px,-18px); opacity: 1; } }
@@ -46,9 +46,24 @@
       <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
   </defs>
-<rect width="800" height="1184" rx="24" fill="#100912" stroke="rgba(255,111,145,0.25)" stroke-width="1.5"/>
-<rect width="800" height="1184" rx="24" fill="url(#grid)"/>
+<rect width="800" height="1400" rx="24" fill="#100912" stroke="rgba(255,111,145,0.25)" stroke-width="1.5"/>
+<rect width="800" height="1400" rx="24" fill="url(#grid)"/>
 <circle class="particle" cx="461" cy="650" r="0.4" fill="#7ee7ff" style="--dur:8.0s; --peak:0.33; animation-delay:4.3s;" /><circle class="particle" cx="733" cy="44" r="2.0" fill="#e8c8ff" style="--dur:10.8s; --peak:0.47; animation-delay:8.5s;" /><circle class="particle" cx="297" cy="1046" r="0.5" fill="#ff88cc" style="--dur:5.5s; --peak:0.28; animation-delay:10.0s;" /><circle class="particle" cx="71" cy="935" r="1.0" fill="#ffffff" style="--dur:9.9s; --peak:0.33; animation-delay:6.1s;" /><circle class="particle" cx="589" cy="415" r="1.6" fill="#7ee7ff" style="--dur:10.9s; --peak:0.46; animation-delay:9.9s;" /><circle class="particle" cx="366" cy="732" r="1.4" fill="#e8c8ff" style="--dur:7.3s; --peak:0.36; animation-delay:4.4s;" /><circle class="particle" cx="560" cy="345" r="2.1" fill="#ff88cc" style="--dur:5.3s; --peak:0.34; animation-delay:5.8s;" /><circle class="particle" cx="720" cy="332" r="1.7" fill="#ffffff" style="--dur:7.2s; --peak:0.41; animation-delay:9.4s;" /><circle class="particle" cx="629" cy="52" r="0.8" fill="#7ee7ff" style="--dur:9.4s; --peak:0.30; animation-delay:9.6s;" /><circle class="particle" cx="326" cy="745" r="0.8" fill="#e8c8ff" style="--dur:5.7s; --peak:0.32; animation-delay:10.0s;" /><circle class="particle" cx="77" cy="400" r="0.6" fill="#ff88cc" style="--dur:5.2s; --peak:0.29; animation-delay:6.7s;" /><circle class="particle" cx="44" cy="363" r="1.4" fill="#ffffff" style="--dur:9.8s; --peak:0.43; animation-delay:8.6s;" /><circle class="particle" cx="496" cy="355" r="1.7" fill="#7ee7ff" style="--dur:7.0s; --peak:0.52; animation-delay:1.3s;" /><circle class="particle" cx="586" cy="491" r="2.0" fill="#e8c8ff" style="--dur:10.1s; --peak:0.46; animation-delay:11.4s;" /><circle class="particle" cx="262" cy="817" r="1.1" fill="#ff88cc" style="--dur:7.9s; --peak:0.36; animation-delay:6.1s;" /><circle class="particle" cx="676" cy="324" r="0.4" fill="#ffffff" style="--dur:5.2s; --peak:0.38; animation-delay:2.5s;" /><circle class="particle" cx="363" cy="965" r="1.4" fill="#7ee7ff" style="--dur:10.3s; --peak:0.53; animation-delay:6.8s;" /><circle class="particle" cx="33" cy="441" r="0.8" fill="#e8c8ff" style="--dur:7.0s; --peak:0.32; animation-delay:4.0s;" />
+
+    <g>
+      <line x1="28" y1="1128" x2="772" y2="1128" stroke="rgba(255,111,145,0.18)" stroke-width="0.8"/>
+      <rect x="40" y="1150" width="720" height="190" rx="16" fill="rgba(10,8,20,0.9)" stroke="rgba(126,231,255,0.25)" stroke-width="1.5"/>
+      <text x="64" y="1180" font-family="'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif" font-size="10" fill="rgba(126,231,255,0.85)" letter-spacing="4" font-weight="800">ABOUT ME</text>
+      <text x="64" y="1210" font-family="'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif" font-size="12" fill="rgba(240,240,255,0.9)">
+        <tspan x="64" dy="0">I’m a software developer passionate about turning ideas and real-world problems</tspan>
+        <tspan x="64" dy="19">into practical, scalable solutions. I enjoy working with technologies such as Java,</tspan>
+        <tspan x="64" dy="19">C#, Git, and more, while continuously expanding my skills across software engineering,</tspan>
+        <tspan x="64" dy="19">application development, and modern development practices. I believe in writing clean,</tspan>
+        <tspan x="64" dy="19">maintainable code, learning through building, and treating every challenge as an</tspan>
+        <tspan x="64" dy="19">opportunity to improve. My goal is to build software that is not only functional, but</tspan>
+        <tspan x="64" dy="19">genuinely useful and impactful.</tspan>
+      </text>
+    </g>
 
     <g>
       <ellipse class="g-dr" cx="200" cy="140" rx="180" ry="110" fill="url(#g1)"/>

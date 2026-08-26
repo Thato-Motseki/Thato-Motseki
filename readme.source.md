@@ -211,10 +211,6 @@
 </div>
 ```
 
-## About Me
-
-I’m a software developer passionate about turning ideas and real-world problems into practical, scalable solutions. I enjoy working with technologies such as Java, C#, Git, and more, while continuously expanding my skills across software engineering, application development, and modern development practices. I believe in writing clean, maintainable code, learning through building, and treating every challenge as an opportunity to improve. My goal is to build software that is not only functional, but genuinely useful and impactful.
-
 
 ```aura width=800 height=70
 <div style={{ display: 'flex', gap: 10, padding: '14px 22px', width: '100%', height: '100%', background: '#06060a', borderRadius: 30, alignItems: 'center', justifyContent: 'center', fontFamily: 'Inter, sans-serif', position: 'relative', overflow: 'hidden', border: '1px solid rgba(110,80,220,0.15)' }}>
