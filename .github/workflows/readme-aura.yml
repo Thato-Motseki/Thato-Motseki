@@ -29,7 +29,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.METRICTOKEN || github.token }}
           GITHUB_USER: Thato-Motseki
-        run: node .github/scripts/generate-profile.js
+        run: node .github/scripts/generate-profile.js --production
 
       - name: Set README to single profile SVG
         run: |

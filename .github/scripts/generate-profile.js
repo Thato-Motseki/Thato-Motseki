@@ -505,7 +505,8 @@ function mockData() {
 
 // Main
 const username = process.env.GITHUB_USER || 'Thato-Motseki';
-const token = process.env.GITHUB_TOKEN;
+const isProduction = process.argv.includes('--production');
+const token = isProduction ? process.env.GITHUB_TOKEN : undefined;
 
 (async () => {
   let data;
@@ -533,7 +534,8 @@ const token = process.env.GITHUB_TOKEN;
   const path = await import('node:path');
   const outDir = path.resolve(process.cwd(), '.github/assets');
   fs.mkdirSync(outDir, { recursive: true });
-  const outPath = path.join(outDir, 'profile.svg');
+  const outputName = isProduction ? 'profile.svg' : 'profile.preview.svg';
+  const outPath = path.join(outDir, outputName);
   fs.writeFileSync(outPath, svg, 'utf-8');
-  console.log(`  Generated: ${outPath} (${Math.round(svg.length/1024)}KB)`);
+  console.log(`  Generated ${isProduction ? 'production' : 'preview'} profile: ${outPath} (${Math.round(svg.length/1024)}KB)`);
 })();
