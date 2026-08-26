@@ -2,7 +2,7 @@
   <img src="https://komarev.com/ghpvc/?username=Thato-Motseki&label=Profile%20views&color=ff6f91&style=flat" alt="T.Motseki" />
 </p>
 
-<table>
+<table width="100%">
   <tr>
     <td width="190" align="center" valign="middle">
       <img src="./.github/assets/banner.png" width="180" height="180" alt="T.Motseki banner" />
