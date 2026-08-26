@@ -1,0 +1,43 @@
+name: Generate Profile
+on:
+  push:
+    branches: [main, master]
+  schedule:
+    - cron: '*/1 * * * *' # Every 5 minutes (GitHub Actions minimum)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Generate individual aura components
+        uses: collectioneur/readme-aura@main
+        with:
+          github_token: ${{ secrets.METRICTOKEN }}
+
+      - name: Generate unified profile SVG
+        env:
+          GITHUB_TOKEN: ${{ secrets.METRICTOKEN }}
+          GITHUB_USER: Thato-Motseki
+        run: node .github/scripts/generate-profile.js
+
+      - name: Set README to single profile SVG
+        run: |
+          printf '<p align="center">\n  <img src="https://komarev.com/ghpvc/?username=Thato-Motseki&label=Profile%%20views&color=0e75b6&style=flat" alt="Thato-Motseki" />\n</p>\n\n# Thato Motseki\n\n[GitHub](https://github.com/Thato-Motseki) · [LinkedIn](https://www.linkedin.com/in/thato-motseki)\n\n![THATO Profile](./.github/assets/profile.svg)\n' > README.md
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add --force .github/assets/*.svg README.md
+          git diff --staged --quiet || (git commit -m "chore: update profile" && git push)
