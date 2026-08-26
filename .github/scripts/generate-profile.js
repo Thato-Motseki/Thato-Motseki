@@ -249,7 +249,7 @@ function generateSVG(data, bannerData) {
   // ═══════════════ TECH STACK ═══════════════
   const techStack = (() => {
     const baseY = y;
-    const techs = ['C', 'C++', 'x86 ASM', 'Python', 'JavaScript', 'Rust', 'GLSL', 'OpenGL'];
+    const techs = ['C#', 'C++', 'JAVA', 'Python', 'JavaScript', 'TypeScript', 'PostgreSQL', 'OpenAI'];
     const colors = ['#7ee7ff', '#e8c8ff', '#ff88cc', '#7ee7ff', '#e8c8ff', '#ff88cc', '#e8c8ff', '#7ee7ff'];
     let pills = '';
     // Calculate total width first to center them
