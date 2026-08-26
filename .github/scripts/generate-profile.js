@@ -516,12 +516,10 @@ const token = process.env.GITHUB_TOKEN;
       user._allTimeCommits = allTimeCommits;
       data = processData(user);
     } catch (e) {
-      console.error(`Error: ${e.message}`);
-      data = mockData();
+      throw new Error(`Unable to fetch live GitHub data: ${e.message}`);
     }
   } else {
-    console.log('No GITHUB_TOKEN \u2014 using mock data for preview.');
-    data = mockData();
+    throw new Error('GITHUB_TOKEN is required to generate accurate profile statistics.');
   }
 
   const svg = generateSVG(data);

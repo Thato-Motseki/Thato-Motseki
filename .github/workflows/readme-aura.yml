@@ -23,11 +23,11 @@ jobs:
       - name: Generate individual aura components
         uses: collectioneur/readme-aura@main
         with:
-          github_token: ${{ secrets.METRICTOKEN }}
+          github_token: ${{ secrets.METRICTOKEN || github.token }}
 
       - name: Generate unified profile SVG
         env:
-          GITHUB_TOKEN: ${{ secrets.METRICTOKEN }}
+          GITHUB_TOKEN: ${{ secrets.METRICTOKEN || github.token }}
           GITHUB_USER: Thato-Motseki
         run: node .github/scripts/generate-profile.js
 
