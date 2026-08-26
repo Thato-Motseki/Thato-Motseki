@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Generates the entire THATO profile as ONE single SVG
+// Generates the entire T.Motseki profile as ONE single SVG
 // Fetches real data from GitHub GraphQL API
 
 const QUERY = `
@@ -94,23 +94,34 @@ function processData(user) {
       langMap[name].count++;
     }
   }
-  const langArr = Object.values(langMap).sort((a, b) => b.count - a.count).slice(0, 10);
-  const totalLang = langArr.reduce((s, l) => s + l.count, 0);
-  const languages = langArr.map(l => ({ ...l, percentage: Math.round((l.count / (totalLang || 1)) * 100) }));
+  const languages = [
+    { name: 'C', color: '#a8d8ff', percentage: 14 },
+    { name: 'C#', color: '#72c7ff', percentage: 9 },
+    { name: 'C++', color: '#ff6f91', percentage: 14 },
+    { name: 'PYTHON', color: '#ffd166', percentage: 14 },
+    { name: 'JAVASCRIPT', color: '#f7d154', percentage: 12 },
+    { name: 'JAVA', color: '#ff9f68', percentage: 8 },
+    { name: 'RUST', color: '#ff8fa3', percentage: 8 },
+    { name: 'TYPESCRIPT', color: '#72c7ff', percentage: 9 },
+    { name: 'TAILWIND CSS', color: '#63d7d0', percentage: 6 },
+    { name: 'REACT.JS', color: '#8be9fd', percentage: 6 },
+  ];
 
-  const topProjects = repos
-    .filter(r => r.name && r.description)
-    .sort((a, b) => b.stargazerCount - a.stargazerCount)
-    .slice(0, 3)
-    .map(r => ({
-      name: r.name,
-      desc: r.description,
-      stars: r.stargazerCount,
-      forks: r.forkCount,
-      lang: r.primaryLanguage ? r.primaryLanguage.name : null,
-      langColor: r.primaryLanguage ? r.primaryLanguage.color : '#555',
-      url: r.url,
-    }));
+  const deploymentSpecs = [
+    { name: 'Ethiopian Legal Chatbot', desc: 'Accessible legal guidance powered by conversational AI', lang: 'PYTHON' },
+    { name: 'Sentinel AI', desc: 'Intelligent monitoring and threat detection platform', lang: 'PYTHON' },
+    { name: 'Market Price Predictor', desc: 'Data-driven forecasting for market price movement', lang: 'JAVASCRIPT' },
+  ];
+  const topProjects = deploymentSpecs.map(spec => {
+    const repo = repos.find(r => r.name.toLowerCase() === spec.name.toLowerCase());
+    return {
+      ...spec,
+      stars: repo ? repo.stargazerCount : 0,
+      forks: repo ? repo.forkCount : 0,
+      langColor: repo && repo.primaryLanguage ? repo.primaryLanguage.color : '#ff6f91',
+      url: repo ? repo.url : null,
+    };
+  });
 
   return {
     stats: { totalStars, totalForks, totalRepos, totalCommits },
@@ -164,20 +175,20 @@ function generateSVG(data) {
 
   // ═══════════════ DEFS ═══════════════
   const defs = `
-    <radialGradient id="g1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(120,40,255,0.6)"/><stop offset="100%" stop-color="rgba(120,40,255,0)"/></radialGradient>
-    <radialGradient id="g2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(0,200,220,0.5)"/><stop offset="100%" stop-color="rgba(0,200,220,0)"/></radialGradient>
-    <radialGradient id="g3" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(220,40,200,0.45)"/><stop offset="100%" stop-color="rgba(220,40,200,0)"/></radialGradient>
-    <radialGradient id="g4" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(40,120,255,0.4)"/><stop offset="100%" stop-color="rgba(40,120,255,0)"/></radialGradient>
-    <radialGradient id="g5" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(80,50,220,0.35)"/><stop offset="100%" stop-color="rgba(80,50,220,0)"/></radialGradient>
+    <radialGradient id="g1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(255,54,145,0.62)"/><stop offset="100%" stop-color="rgba(255,54,145,0)"/></radialGradient>
+    <radialGradient id="g2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(99,215,208,0.5)"/><stop offset="100%" stop-color="rgba(99,215,208,0)"/></radialGradient>
+    <radialGradient id="g3" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(255,159,104,0.48)"/><stop offset="100%" stop-color="rgba(255,159,104,0)"/></radialGradient>
+    <radialGradient id="g4" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(114,199,255,0.42)"/><stop offset="100%" stop-color="rgba(114,199,255,0)"/></radialGradient>
+    <radialGradient id="g5" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(255,111,145,0.38)"/><stop offset="100%" stop-color="rgba(255,111,145,0)"/></radialGradient>
     <linearGradient id="scg" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="rgba(120,200,255,0)"/>
-      <stop offset="40%" stop-color="rgba(120,200,255,0.12)"/>
-      <stop offset="50%" stop-color="rgba(160,120,255,0.45)"/>
-      <stop offset="60%" stop-color="rgba(120,200,255,0.12)"/>
-      <stop offset="100%" stop-color="rgba(120,200,255,0)"/>
+      <stop offset="0%" stop-color="rgba(255,111,145,0)"/>
+      <stop offset="40%" stop-color="rgba(255,111,145,0.14)"/>
+      <stop offset="50%" stop-color="rgba(99,215,208,0.48)"/>
+      <stop offset="60%" stop-color="rgba(255,111,145,0.14)"/>
+      <stop offset="100%" stop-color="rgba(255,111,145,0)"/>
     </linearGradient>
     <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(110,80,220,0.06)" stroke-width="0.5"/>
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,111,145,0.08)" stroke-width="0.5"/>
     </pattern>
     <filter id="glow">
       <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
@@ -206,6 +217,7 @@ function generateSVG(data) {
     const cy = y + heroH / 2;
     return `
     <g>
+      <image href="banner.png" x="0" y="${y}" width="${W}" height="${heroH}" preserveAspectRatio="xMidYMid slice" opacity="0.28"/>
       <ellipse class="g-dr" cx="200" cy="${cy}" rx="180" ry="110" fill="url(#g1)"/>
       <ellipse class="g-dl" cx="620" cy="${cy+20}" rx="160" ry="95" fill="url(#g2)"/>
       <ellipse class="g-du" cx="420" cy="${cy-30}" rx="140" ry="90" fill="url(#g3)"/>
@@ -220,11 +232,11 @@ function generateSVG(data) {
       <circle class="g-dot" cx="60" cy="${cy-65}" r="2" fill="#7ee7ff"/>
       <circle class="g-dot" cx="740" cy="${cy+45}" r="2" fill="#e8c8ff" style="animation-delay:1.5s"/>
       <circle class="g-dot" cx="700" cy="${cy-50}" r="1.5" fill="#ff88cc" style="animation-delay:2.5s"/>
-      <text x="400" y="${cy-48}" text-anchor="middle" font-family="${font}" font-size="48" font-weight="900" fill="#ffffff" letter-spacing="20" filter="url(#glow)">THATO</text>
-      <text x="400" y="${cy-8}" text-anchor="middle" font-family="${font}" font-size="11" fill="rgba(126,231,255,0.9)" letter-spacing="6" font-weight="700">SYSTEMS PROGRAMMER</text>
-      <line x1="260" y1="${cy+10}" x2="540" y2="${cy+10}" stroke="rgba(126,231,255,0.25)" stroke-width="1" filter="url(#glow)"/>
-      <text x="400" y="${cy+35}" text-anchor="middle" font-family="${font}" font-size="10" fill="rgba(232,200,255,0.8)" letter-spacing="3" font-weight="600">PERFORMANCE ENGINEER  |  OSDEV</text>
-      <text x="400" y="${cy+60}" text-anchor="middle" font-family="${font}" font-size="9.5" fill="rgba(126,231,255,0.6)" letter-spacing="2" font-weight="500">x86/ARM INTERNALS  \u2022  BARE-METAL  \u2022  SoC VALIDATION</text>
+      <text x="400" y="${cy-48}" text-anchor="middle" font-family="${font}" font-size="48" font-weight="900" fill="#ffffff" letter-spacing="12" filter="url(#glow)">T.Motseki</text>
+      <text x="400" y="${cy-8}" text-anchor="middle" font-family="${font}" font-size="11" fill="rgba(255,111,145,0.95)" letter-spacing="6" font-weight="700">SOFTWARE DEVELOPER</text>
+      <line x1="260" y1="${cy+10}" x2="540" y2="${cy+10}" stroke="rgba(99,215,208,0.3)" stroke-width="1" filter="url(#glow)"/>
+      <text x="400" y="${cy+35}" text-anchor="middle" font-family="${font}" font-size="10" fill="rgba(255,209,102,0.9)" letter-spacing="3" font-weight="600">BUILD. BREAK. LEARN. IMPROVE</text>
+      <text x="400" y="${cy+60}" text-anchor="middle" font-family="${font}" font-size="9.5" fill="rgba(168,216,255,0.72)" letter-spacing="2" font-weight="500">AI  \u2022  FULL-STACK  \u2022  SYSTEMS</text>
       <text x="400" y="${cy+85}" text-anchor="middle" font-family="${font}" font-size="9" fill="rgba(100,100,140,0.5)" letter-spacing="1.5">github.com/Thato-Motseki</text>
     </g>`;
   })();
@@ -253,7 +265,7 @@ function generateSVG(data) {
     });
     return `
     <g>
-      <line x1="28" y1="${baseY}" x2="772" y2="${baseY}" stroke="rgba(110,80,220,0.15)" stroke-width="0.8"/>
+      <line x1="28" y1="${baseY}" x2="772" y2="${baseY}" stroke="rgba(255,111,145,0.18)" stroke-width="0.8"/>
       ${pills}
     </g>`;
   })();
@@ -285,7 +297,7 @@ function generateSVG(data) {
     });
     return `
     <g>
-      <line x1="28" y1="${baseY}" x2="772" y2="${baseY}" stroke="rgba(110,80,220,0.15)" stroke-width="0.8"/>
+      <line x1="28" y1="${baseY}" x2="772" y2="${baseY}" stroke="rgba(255,111,145,0.18)" stroke-width="0.8"/>
       <ellipse class="g-dl" cx="400" cy="${baseY+45}" rx="300" ry="55" fill="url(#g1)" opacity="0.7"/>
       <rect class="g-scan" x="-200" y="${baseY+45}" width="200" height="2" fill="url(#scg)" style="animation-delay:1.5s"/>
       ${cols}
@@ -327,7 +339,7 @@ function generateSVG(data) {
 
     return `
     <g>
-      <line x1="28" y1="${baseY}" x2="772" y2="${baseY}" stroke="rgba(110,80,220,0.15)" stroke-width="0.8"/>
+      <line x1="28" y1="${baseY}" x2="772" y2="${baseY}" stroke="rgba(255,111,145,0.18)" stroke-width="0.8"/>
       <ellipse class="g-dr" cx="650" cy="${baseY+100}" rx="180" ry="100" fill="url(#g5)"/>
       <text x="${barX}" y="${baseY+22}" font-family="${font}" font-size="10" fill="rgba(126,231,255,0.85)" letter-spacing="4" font-weight="800">STACK ANALYTICS</text>
       ${bar}
@@ -364,7 +376,7 @@ function generateSVG(data) {
 
     return `
     <g>
-      <line x1="28" y1="${baseY}" x2="772" y2="${baseY}" stroke="rgba(110,80,220,0.15)" stroke-width="0.8"/>
+      <line x1="28" y1="${baseY}" x2="772" y2="${baseY}" stroke="rgba(255,111,145,0.18)" stroke-width="0.8"/>
       <text x="40" y="${baseY+22}" font-family="${font}" font-size="10" fill="rgba(126,231,255,0.85)" letter-spacing="4" font-weight="800">ACTIVITY PULSE</text>
       <text x="760" y="${baseY+22}" text-anchor="end" font-family="${font}" font-size="10" fill="rgba(232,200,255,0.65)" font-weight="700">${data.calendar.totalContributions} contributions</text>
       ${cells}
@@ -428,20 +440,20 @@ function generateSVG(data) {
 
     return `
     <g>
-      <line x1="28" y1="${baseY}" x2="772" y2="${baseY}" stroke="rgba(110,80,220,0.15)" stroke-width="0.8"/>
+      <line x1="28" y1="${baseY}" x2="772" y2="${baseY}" stroke="rgba(255,111,145,0.18)" stroke-width="0.8"/>
       <ellipse class="g-du" cx="400" cy="${baseY+110}" rx="260" ry="75" fill="url(#g3)" opacity="0.5"/>
-      <text x="40" y="${baseY+22}" font-family="${font}" font-size="10" fill="rgba(126,231,255,0.85)" letter-spacing="4" font-weight="800">PRIMARY DEPLOYMENTS</text>
+      <text x="40" y="${baseY+22}" font-family="${font}" font-size="10" fill="rgba(255,111,145,0.9)" letter-spacing="4" font-weight="800">PRIMARY DEPLOYMENTS</text>
       ${cards}
     </g>`;
   })();
   y += projH;
 
   // ═══════════════ FINAL SVG ═══════════════
-  return `<!-- THATO Profile | Enhanced | Generated ${new Date().toISOString()} -->
+  return `<!-- T.Motseki Profile | Generated ${new Date().toISOString()} -->
 <svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${totalH}" viewBox="0 0 ${W} ${totalH}">
 <style>${style}</style>
 <defs>${defs}</defs>
-<rect width="${W}" height="${totalH}" rx="24" fill="#060610" stroke="rgba(110,80,220,0.2)" stroke-width="1.5"/>
+<rect width="${W}" height="${totalH}" rx="24" fill="#100912" stroke="rgba(255,111,145,0.25)" stroke-width="1.5"/>
 <rect width="${W}" height="${totalH}" rx="24" fill="url(#grid)"/>
 ${particles}
 ${hero}
@@ -450,7 +462,7 @@ ${statsBlock}
 ${langs}
 ${calendar}
 ${projects}
-<text x="400" y="${totalH-16}" text-anchor="middle" font-family="${font}" font-size="8.5" fill="rgba(100,100,150,0.45)" font-weight="600" letter-spacing="2">THATO SYSTEMS \u2022 HIGH PERFORMANCE INFRASTRUCTURE</text>
+<text x="400" y="${totalH-16}" text-anchor="middle" font-family="${font}" font-size="8.5" fill="rgba(255,159,104,0.55)" font-weight="600" letter-spacing="2">T.Motseki \u2022 SOFTWARE DEVELOPER</text>
 </svg>`;
 }
 
@@ -468,21 +480,21 @@ function mockData() {
   return {
     stats: { totalStars: 12, totalForks: 5, totalRepos: 24, totalCommits: 847 },
     languages: [
-      { name: 'C++', color: '#f34b7d', percentage: 35 },
-      { name: 'C', color: '#555555', percentage: 14 },
-      { name: 'Python', color: '#3572A5', percentage: 11 },
-      { name: 'CSS', color: '#663399', percentage: 11 },
-      { name: 'GLSL', color: '#5686a5', percentage: 5 },
-      { name: 'Shell', color: '#89e051', percentage: 5 },
-      { name: 'Assembly', color: '#6E4C13', percentage: 5 },
-      { name: 'TypeScript', color: '#3178c6', percentage: 3 },
-      { name: 'HTML', color: '#e34c26', percentage: 3 },
-      { name: 'JavaScript', color: '#f1e05a', percentage: 3 },
+      { name: 'C', color: '#a8d8ff', percentage: 14 },
+      { name: 'C#', color: '#72c7ff', percentage: 9 },
+      { name: 'C++', color: '#ff6f91', percentage: 14 },
+      { name: 'PYTHON', color: '#ffd166', percentage: 14 },
+      { name: 'JAVASCRIPT', color: '#f7d154', percentage: 12 },
+      { name: 'JAVA', color: '#ff9f68', percentage: 8 },
+      { name: 'RUST', color: '#ff8fa3', percentage: 8 },
+      { name: 'TYPESCRIPT', color: '#72c7ff', percentage: 9 },
+      { name: 'TAILWIND CSS', color: '#63d7d0', percentage: 6 },
+      { name: 'REACT.JS', color: '#8be9fd', percentage: 6 },
     ],
     topProjects: [
-      { name: 'BrainDance OS', desc: 'Custom x86 operating system with memory management and multitasking', stars: 8, forks: 2, lang: 'C', langColor: '#555555' },
-      { name: 'CAT', desc: 'LLVM-based compiler architecture toolkit for ARM/RISC-V backends', stars: 4, forks: 1, lang: 'C++', langColor: '#f34b7d' },
-      { name: 'Calcium 3D', desc: 'Real-time software renderer with vertex pipeline and rasterization', stars: 3, forks: 0, lang: 'C++', langColor: '#f34b7d' },
+      { name: 'Ethiopian Legal Chatbot', desc: 'Accessible legal guidance powered by conversational AI', stars: 0, forks: 0, lang: 'PYTHON', langColor: '#ff6f91' },
+      { name: 'Sentinel AI', desc: 'Intelligent monitoring and threat detection platform', stars: 0, forks: 0, lang: 'PYTHON', langColor: '#ff6f91' },
+      { name: 'Market Price Predictor', desc: 'Data-driven forecasting for market price movement', stars: 0, forks: 0, lang: 'JAVASCRIPT', langColor: '#ff6f91' },
     ],
     calendar: { totalContributions: 847, weeks },
   };

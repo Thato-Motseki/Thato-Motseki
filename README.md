@@ -1,9 +1,11 @@
 <p align="center">
-  <img src="https://komarev.com/ghpvc/?username=Thato-Motseki&label=Profile%20views&color=0e75b6&style=flat" alt="Thato-Motseki" />
+  <img src="https://komarev.com/ghpvc/?username=Thato-Motseki&label=Profile%20views&color=ff6f91&style=flat" alt="T.Motseki" />
 </p>
 
-# Thato Motseki
+# T.Motseki
+
+<p align="center"><img src="./.github/assets/banner.png" alt="T.Motseki banner" /></p>
 
 [GitHub](https://github.com/Thato-Motseki) · [LinkedIn](https://www.linkedin.com/in/thato-motseki)
 
-![THATO Profile](./.github/assets/profile.svg)
+![T.Motseki Profile](./.github/assets/profile.svg)

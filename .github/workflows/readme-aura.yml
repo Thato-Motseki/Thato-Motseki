@@ -3,7 +3,7 @@ on:
   push:
     branches: [main, master]
   schedule:
-    - cron: '*/1 * * * *' # Every 5 minutes (GitHub Actions minimum)
+    - cron: '17 * * * *' # Hourly refresh for live GitHub metrics
   workflow_dispatch:
 
 permissions:
@@ -33,11 +33,11 @@ jobs:
 
       - name: Set README to single profile SVG
         run: |
-          printf '<p align="center">\n  <img src="https://komarev.com/ghpvc/?username=Thato-Motseki&label=Profile%%20views&color=0e75b6&style=flat" alt="Thato-Motseki" />\n</p>\n\n# Thato Motseki\n\n[GitHub](https://github.com/Thato-Motseki) · [LinkedIn](https://www.linkedin.com/in/thato-motseki)\n\n![THATO Profile](./.github/assets/profile.svg)\n' > README.md
+          printf '<p align="center">\n  <img src="https://komarev.com/ghpvc/?username=Thato-Motseki&label=Profile%%20views&color=ff6f91&style=flat" alt="T.Motseki" />\n</p>\n\n# T.Motseki\n\n<p align="center"><img src="./.github/assets/banner.png" alt="T.Motseki banner" /></p>\n\n[GitHub](https://github.com/Thato-Motseki) · [LinkedIn](https://www.linkedin.com/in/thato-motseki)\n\n![T.Motseki Profile](./.github/assets/profile.svg)\n' > README.md
 
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add --force .github/assets/*.svg README.md
+          git add --force .github/assets README.md
           git diff --staged --quiet || (git commit -m "chore: update profile" && git push)
