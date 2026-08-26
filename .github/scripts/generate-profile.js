@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+
 // Generates the entire T.Motseki profile as ONE single SVG
 // Fetches real data from GitHub GraphQL API
 
@@ -61,36 +61,6 @@ async function gql(token, query, variables) {
 
 async function fetchData(username, token) {
   return (await gql(token, QUERY, { login: username })).user;
-}
-
-async function rest(username, endpoint) {
-  const res = await fetch(`https://api.github.com/${endpoint}`, {
-    headers: { 'Accept': 'application/vnd.github+json', 'User-Agent': 'tmotseki-profile' },
-  });
-  if (!res.ok) throw new Error(`GitHub REST API ${res.status}: ${await res.text()}`);
-  return res.json();
-}
-
-async function fetchPublicData(username) {
-  const user = await rest(username, `users/${username}`);
-  const repos = await rest(username, `users/${username}/repos?per_page=100&sort=updated`);
-  const commits = await rest(username, `search/commits?q=author:${username}`);
-  return {
-    ...user,
-    repositories: {
-      totalCount: user.public_repos,
-      nodes: repos.map(repo => ({
-        name: repo.name,
-        description: repo.description,
-        stargazerCount: repo.stargazers_count,
-        forkCount: repo.forks_count,
-        primaryLanguage: repo.language ? { name: repo.language, color: '#ff6f91' } : null,
-        url: repo.html_url,
-      })),
-    },
-    _allTimeCommits: commits.total_count,
-    contributionsCollection: { totalCommitContributions: commits.total_count, contributionCalendar: { totalContributions: 0, weeks: [] } },
-  };
 }
 
 async function fetchAllTimeCommits(username, token, createdAt) {
@@ -247,7 +217,6 @@ function generateSVG(data) {
     const cy = y + heroH / 2;
     return `
     <g>
-      <image href="banner.png" x="0" y="${y}" width="${W}" height="${heroH}" preserveAspectRatio="xMidYMid slice" opacity="0.28"/>
       <ellipse class="g-dr" cx="200" cy="${cy}" rx="180" ry="110" fill="url(#g1)"/>
       <ellipse class="g-dl" cx="620" cy="${cy+20}" rx="160" ry="95" fill="url(#g2)"/>
       <ellipse class="g-du" cx="420" cy="${cy-30}" rx="140" ry="90" fill="url(#g3)"/>
@@ -388,7 +357,7 @@ function generateSVG(data) {
     const gridX = 55;
     const gridY = baseY + 40;
     const colors = ['rgba(25,25,45,0.7)', 'rgba(45,74,110,0.85)', 'rgba(74,126,200,0.9)', 'rgba(126,231,255,0.95)', '#ffffff'];
-
+    
     // Limit to last 52 weeks that fit in our width
     const maxWeeks = Math.min(weeks.length, Math.floor((W - gridX - 30) / step));
     const displayWeeks = weeks.slice(weeks.length - maxWeeks);
@@ -409,7 +378,7 @@ function generateSVG(data) {
       <line x1="28" y1="${baseY}" x2="772" y2="${baseY}" stroke="rgba(255,111,145,0.18)" stroke-width="0.8"/>
       <text x="40" y="${baseY+22}" font-family="${font}" font-size="10" fill="rgba(126,231,255,0.85)" letter-spacing="4" font-weight="800">ACTIVITY PULSE</text>
       <text x="760" y="${baseY+22}" text-anchor="end" font-family="${font}" font-size="10" fill="rgba(232,200,255,0.65)" font-weight="700">${data.calendar.totalContributions} contributions</text>
-${cells}
+      ${cells}
     </g>`;
   })();
   y += calH + gap;
@@ -423,7 +392,7 @@ ${cells}
     const cardGap = 16;
     const startX = (W - cardW * 3 - cardGap * 2) / 2;
     const cardColors = ['#7ee7ff', '#e8c8ff', '#ff88cc'];
-
+    
     let cards = '';
     projs.forEach((p, i) => {
       const cx = startX + i * (cardW + cardGap);
@@ -546,11 +515,12 @@ const token = process.env.GITHUB_TOKEN;
       user._allTimeCommits = allTimeCommits;
       data = processData(user);
     } catch (e) {
-      throw new Error(`Unable to fetch live GitHub data: ${e.message}`);
+      console.error(`Error: ${e.message}`);
+      data = mockData();
     }
   } else {
-    console.log('No GITHUB_TOKEN - using GitHub public REST data for headline metrics.');
-    data = processData(await fetchPublicData(username));
+    console.log('No GITHUB_TOKEN \u2014 using mock data for preview.');
+    data = mockData();
   }
 
   const svg = generateSVG(data);
