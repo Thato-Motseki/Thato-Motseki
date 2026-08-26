@@ -120,9 +120,9 @@
     <rect id="hdr-hline3" x="250" y="156" width="300" height="1" fill="url(#hg-hline)" rx="1" />
   </svg>
   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 10, gap: 4 }}>
-    <span style={{ fontSize: 64, fontWeight: 900, background: 'linear-gradient(135deg, #ffffff 0%, #d0c0ff 30%, #7ee7ff 55%, #ff88cc 80%, #ffffff 100%)', backgroundClip: 'text', WebkitBackgroundClip: 'text', color: 'transparent', letterSpacing: 10 }}>THATO</span>
-    <span style={{ fontSize: 14, color: '#6a6a8a', fontWeight: 400, letterSpacing: 4, textTransform: 'uppercase', marginTop: 2 }}>Thato Motseki</span>
-    <span style={{ fontSize: 12, color: '#4a4a6a', fontWeight: 300, letterSpacing: 1.5, marginTop: 6 }}>Low-level Systems Programmer | Performance Engineering | Bare-metal</span>
+    <span style={{ fontSize: 64, fontWeight: 900, background: 'linear-gradient(135deg, #ffffff 0%, #ff6f91 45%, #63d7d0 70%, #ffd166 100%)', backgroundClip: 'text', WebkitBackgroundClip: 'text', color: 'transparent', letterSpacing: 8 }}>T.Motseki</span>
+    <span style={{ fontSize: 14, color: '#ff6f91', fontWeight: 700, letterSpacing: 4, textTransform: 'uppercase', marginTop: 2 }}>Software Developer</span>
+    <span style={{ fontSize: 12, color: '#ffd166', fontWeight: 600, letterSpacing: 2, marginTop: 6 }}>Build. Break. Learn. Improve</span>
   </div>
   <div style={{ display: 'flex', gap: 8, marginTop: 22, zIndex: 10 }}>
     <span style={{ padding: '5px 16px', background: 'rgba(8,6,14,0.7)', color: '#7ee7ff', borderRadius: 14, fontSize: 12, fontWeight: 600, border: '1px solid rgba(120,200,255,0.2)', letterSpacing: 1 }}>OSDEV</span>
@@ -188,7 +188,7 @@
   </svg>
   <div style={{ display: 'flex', flexDirection: 'column', flex: 1, background: 'rgba(10,8,18,0.7)', borderRadius: 14, padding: 22, border: '1px solid rgba(100,70,200,0.18)', zIndex: 10, justifyContent: 'center' }}>
     <span style={{ fontSize: 10, color: 'rgba(120,200,255,0.7)', textTransform: 'uppercase', letterSpacing: 3, marginBottom: 10, fontWeight: 600 }}>Profile</span>
-    <span style={{ fontSize: 15, fontWeight: 700, color: '#ffffff', marginBottom: 6 }}>Systems Programmer</span>
+    <span style={{ fontSize: 15, fontWeight: 700, color: '#ffffff', marginBottom: 6 }}>Software Developer</span>
     <span style={{ fontSize: 12, color: 'rgba(200,200,230,0.8)', lineHeight: 1.5 }}>Specializing in C, C++ and x86/ARM Assembly for hardware-near optimization.</span>
   </div>
   <div style={{ display: 'flex', flexDirection: 'column', flex: 1, background: 'rgba(10,8,18,0.7)', borderRadius: 14, padding: 22, border: '1px solid rgba(100,70,200,0.18)', zIndex: 10, justifyContent: 'center' }}>
@@ -267,12 +267,12 @@
   </svg>
   <span style={{ padding: '5px 16px', background: 'rgba(8,6,14,0.7)', color: '#7eb8ff', borderRadius: 16, fontSize: 13, fontWeight: 700, border: '1px solid rgba(100,80,220,0.25)', zIndex: 10 }}>C</span>
   <span style={{ padding: '5px 16px', background: 'rgba(8,6,14,0.7)', color: '#78d4ff', borderRadius: 16, fontSize: 13, fontWeight: 700, border: '1px solid rgba(100,80,220,0.25)', zIndex: 10 }}>C++</span>
-  <span style={{ padding: '5px 16px', background: 'rgba(8,6,14,0.7)', color: '#b8a0ff', borderRadius: 16, fontSize: 13, fontWeight: 700, border: '1px solid rgba(100,80,220,0.25)', zIndex: 10 }}>x86 ASM</span>
+  <span style={{ padding: '5px 16px', background: 'rgba(8,6,14,0.7)', color: '#ffd166', borderRadius: 16, fontSize: 13, fontWeight: 700, border: '1px solid rgba(255,111,145,0.25)', zIndex: 10 }}>C#</span>
   <span style={{ padding: '5px 16px', background: 'rgba(8,6,14,0.7)', color: '#9ee79e', borderRadius: 16, fontSize: 13, fontWeight: 700, border: '1px solid rgba(100,80,220,0.25)', zIndex: 10 }}>Python</span>
   <span style={{ padding: '5px 16px', background: 'rgba(8,6,14,0.7)', color: '#ffcc88', borderRadius: 16, fontSize: 13, fontWeight: 700, border: '1px solid rgba(100,80,220,0.25)', zIndex: 10 }}>JavaScript</span>
   <span style={{ padding: '5px 16px', background: 'rgba(8,6,14,0.7)', color: '#ffb088', borderRadius: 16, fontSize: 13, fontWeight: 700, border: '1px solid rgba(100,80,220,0.25)', zIndex: 10 }}>Rust</span>
-  <span style={{ padding: '5px 16px', background: 'rgba(8,6,14,0.7)', color: '#e8c8ff', borderRadius: 16, fontSize: 13, fontWeight: 700, border: '1px solid rgba(100,80,220,0.25)', zIndex: 10 }}>GLSL</span>
-  <span style={{ padding: '5px 16px', background: 'rgba(8,6,14,0.7)', color: '#7ee7ff', borderRadius: 16, fontSize: 13, fontWeight: 700, border: '1px solid rgba(100,80,220,0.25)', zIndex: 10 }}>OpenGL</span>
+  <span style={{ padding: '5px 16px', background: 'rgba(8,6,14,0.7)', color: '#63d7d0', borderRadius: 16, fontSize: 13, fontWeight: 700, border: '1px solid rgba(99,215,208,0.25)', zIndex: 10 }}>TypeScript</span>
+  <span style={{ padding: '5px 16px', background: 'rgba(8,6,14,0.7)', color: '#8be9fd', borderRadius: 16, fontSize: 13, fontWeight: 700, border: '1px solid rgba(139,233,253,0.25)', zIndex: 10 }}>React.js</span>
 </div>
 ```
 
@@ -353,7 +353,7 @@
     <ellipse id="lang-g1" cx="650" cy="90" rx="180" ry="100" fill="url(#lng1)" />
     <ellipse id="lang-g2" cx="150" cy="100" rx="160" ry="90" fill="url(#lng2)" />
   </svg>
-  <span style={{ fontSize: 10, color: 'rgba(120,200,255,0.7)', textTransform: 'uppercase', letterSpacing: 3, marginBottom: 16, fontWeight: 600, zIndex: 10 }}>Most Used Languages</span>
+  <span style={{ fontSize: 10, color: 'rgba(255,111,145,0.9)', textTransform: 'uppercase', letterSpacing: 3, marginBottom: 16, fontWeight: 600, zIndex: 10 }}>Stack Analytics</span>
   <div style={{ display: 'flex', width: '100%', height: 6, borderRadius: 3, overflow: 'hidden', marginBottom: 16, zIndex: 10, background: 'rgba(255,255,255,0.05)' }}>
     {(github?.languages ?? []).map((lang, i) => (
       <div key={i} style={{ width: `${lang.percentage}%`, height: '100%', background: lang.color }} />
@@ -425,7 +425,7 @@
     <circle id="proj-d3" cx="34" cy="175" r="2" fill="rgba(255,120,200,0.7)" />
   </svg>
   <div style={{ display: 'flex', flexDirection: 'column', flex: 1, background: 'rgba(10,8,18,0.7)', borderRadius: 14, padding: 18, border: '1px solid rgba(120,200,255,0.12)', zIndex: 10, justifyContent: 'center' }}>
-    <span style={{ fontSize: 17, fontWeight: 800, color: '#ffffff', marginBottom: 4 }}>BrainDance OS</span>
+    <span style={{ fontSize: 17, fontWeight: 800, color: '#ffffff', marginBottom: 4 }}>Ethiopian Legal Chatbot</span>
     <span style={{ fontSize: 11, color: '#7ee7ff', marginBottom: 6, fontWeight: 600, letterSpacing: 0.5 }}>Custom Operating System</span>
     <span style={{ fontSize: 11, color: 'rgba(200,200,230,0.75)', lineHeight: 1.4, marginBottom: 10 }}>Ring-0 hybrid OS with bootloader, protected mode kernel, VFS, custom shell, BDFS filesystem, and syscall interface</span>
     <div style={{ display: 'flex', gap: 5 }}>
@@ -435,7 +435,7 @@
     </div>
   </div>
   <div style={{ display: 'flex', flexDirection: 'column', flex: 1, background: 'rgba(10,8,18,0.7)', borderRadius: 14, padding: 18, border: '1px solid rgba(200,120,255,0.12)', zIndex: 10, justifyContent: 'center' }}>
-    <span style={{ fontSize: 17, fontWeight: 800, color: '#ffffff', marginBottom: 4 }}>CAT</span>
+    <span style={{ fontSize: 17, fontWeight: 800, color: '#ffffff', marginBottom: 4 }}>Sentinel AI</span>
     <span style={{ fontSize: 11, color: '#e8c8ff', marginBottom: 6, fontWeight: 600, letterSpacing: 0.5 }}>LLVM-Based Compiler</span>
     <span style={{ fontSize: 11, color: 'rgba(200,200,230,0.75)', lineHeight: 1.4, marginBottom: 10 }}>Compiler frontend and IR generator for a statically-typed language, type inference, modular x86/ARM backends</span>
     <div style={{ display: 'flex', gap: 5 }}>
@@ -444,7 +444,7 @@
     </div>
   </div>
   <div style={{ display: 'flex', flexDirection: 'column', flex: 1, background: 'rgba(10,8,18,0.7)', borderRadius: 14, padding: 18, border: '1px solid rgba(255,100,180,0.12)', zIndex: 10, justifyContent: 'center' }}>
-    <span style={{ fontSize: 17, fontWeight: 800, color: '#ffffff', marginBottom: 4 }}>Calcium 3D</span>
+    <span style={{ fontSize: 17, fontWeight: 800, color: '#ffffff', marginBottom: 4 }}>Market Price Predictor</span>
     <span style={{ fontSize: 11, color: '#ff88cc', marginBottom: 6, fontWeight: 600, letterSpacing: 0.5 }}>Game Engine</span>
     <span style={{ fontSize: 11, color: 'rgba(200,200,230,0.75)', lineHeight: 1.4, marginBottom: 10 }}>Powerful and lightweight game engine with Forced optimization</span>
     <div style={{ display: 'flex', gap: 5 }}>
