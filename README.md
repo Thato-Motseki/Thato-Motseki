@@ -4,10 +4,12 @@
 
 <table width="100%">
   <tr>
-    <td width="190" align="center" valign="middle">
-      <img src="./.github/assets/banner.png" width="180" height="180" alt="T.Motseki banner" />
+    <td colspan="2" align="center" valign="middle">
+      <img src="./.github/assets/Banner1.png" width="100%" alt="T.Motseki banner" />
     </td>
-    <td valign="middle">
+  </tr>
+  <tr>
+    <td colspan="2" align="center" valign="middle">
       <h1>T.Motseki</h1>
       <p><strong>Software Developer</strong><br />Build. Break. Learn. Improve</p>
       <p><a href="https://github.com/Thato-Motseki">GitHub</a> · <a href="https://www.linkedin.com/in/thato-motseki">LinkedIn</a></p>
