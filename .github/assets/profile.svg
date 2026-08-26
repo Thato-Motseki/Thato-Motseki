@@ -55,13 +55,12 @@
       <rect x="40" y="1150" width="720" height="190" rx="16" fill="rgba(10,8,20,0.9)" stroke="rgba(126,231,255,0.25)" stroke-width="1.5"/>
       <text x="64" y="1180" font-family="'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif" font-size="10" fill="rgba(126,231,255,0.85)" letter-spacing="4" font-weight="800">ABOUT ME</text>
       <text x="64" y="1210" font-family="'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif" font-size="12" fill="rgba(240,240,255,0.9)">
-        <tspan x="64" dy="0">I’m a software developer passionate about turning ideas and real-world problems</tspan>
-        <tspan x="64" dy="19">into practical, scalable solutions. I enjoy working with technologies such as Java,</tspan>
-        <tspan x="64" dy="19">C#, Git, and more, while continuously expanding my skills across software engineering,</tspan>
-        <tspan x="64" dy="19">application development, and modern development practices. I believe in writing clean,</tspan>
-        <tspan x="64" dy="19">maintainable code, learning through building, and treating every challenge as an</tspan>
-        <tspan x="64" dy="19">opportunity to improve. My goal is to build software that is not only functional, but</tspan>
-        <tspan x="64" dy="19">genuinely useful and impactful.</tspan>
+        <tspan x="64" dy="0">I’m a software developer passionate about turning ideas and real-world problems into practical, scalable solutions. I enjoy</tspan>
+        <tspan x="64" dy="19">working with technologies such as Java, C#, Git, and more, while continuously expanding my skills across software engineering,</tspan>
+        <tspan x="64" dy="19">application development, and modern development practices. I believe in writing clean, maintainable code, learning through </tspan>
+        <tspan x="64" dy="19">building, and treating every challenge as an opportunity to improve. My goal is to build software that is not only functional, </tspan>
+        <tspan x="64" dy="19">but genuinely useful and impactful.</tspan>
+        
       </text>
     </g>
 
