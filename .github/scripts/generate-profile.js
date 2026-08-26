@@ -3,12 +3,13 @@
 // Fetches real data from GitHub GraphQL API
 
 const QUERY = `
-query ($login: String!) {
+query ($login: String!, $cursor: String) {
   user(login: $login) {
     name
     createdAt
-    repositories(first: 100, ownerAffiliations: OWNER, orderBy: {field: STARGAZERS, direction: DESC}) {
+    repositories(first: 100, after: $cursor, ownerAffiliations: OWNER, orderBy: {field: STARGAZERS, direction: DESC}) {
       totalCount
+      pageInfo { hasNextPage endCursor }
       nodes {
         name
         description
@@ -60,7 +61,16 @@ async function gql(token, query, variables) {
 }
 
 async function fetchData(username, token) {
-  return (await gql(token, QUERY, { login: username })).user;
+  let cursor = null;
+  let user;
+  let repositories = [];
+  do {
+    user = (await gql(token, QUERY, { login: username, cursor })).user;
+    repositories = repositories.concat(user.repositories.nodes);
+    cursor = user.repositories.pageInfo.hasNextPage ? user.repositories.pageInfo.endCursor : null;
+  } while (cursor);
+  user.repositories.nodes = repositories;
+  return user;
 }
 
 async function fetchAllTimeCommits(username, token, createdAt) {
@@ -95,22 +105,22 @@ function processData(user) {
     }
   }
   const languages = [
-    { name: 'C', color: '#a8d8ff', percentage: 14 },
+    { name: 'PHP', color: '#036bc0', percentage: 14 },
     { name: 'C#', color: '#72c7ff', percentage: 9 },
     { name: 'C++', color: '#ff6f91', percentage: 14 },
     { name: 'PYTHON', color: '#ffd166', percentage: 14 },
     { name: 'JAVASCRIPT', color: '#f7d154', percentage: 12 },
-    { name: 'JAVA', color: '#ff9f68', percentage: 8 },
-    { name: 'RUST', color: '#ff8fa3', percentage: 8 },
-    { name: 'TYPESCRIPT', color: '#72c7ff', percentage: 9 },
-    { name: 'TAILWIND CSS', color: '#63d7d0', percentage: 6 },
-    { name: 'REACT.JS', color: '#8be9fd', percentage: 6 },
+    { name: 'JAVA', color: '#fc7629', percentage: 8 },
+    { name: 'NEXT.JS', color: '#f75d79', percentage: 8 },
+    { name: 'TYPESCRIPT', color: '#07304b', percentage: 9 },
+    { name: 'TAILWIND CSS', color: '#c72902', percentage: 6 },
+    { name: 'REACT.JS', color: '#03723e', percentage: 6 },
   ];
 
   const deploymentSpecs = [
-    { name: 'Ethiopian Legal Chatbot', desc: 'Accessible legal guidance powered by conversational AI', lang: 'PYTHON' },
-    { name: 'Sentinel AI', desc: 'Intelligent monitoring and threat detection platform', lang: 'PYTHON' },
-    { name: 'Market Price Predictor', desc: 'Data-driven forecasting for market price movement', lang: 'JAVASCRIPT' },
+    { name: 'Ethiopian Legal Chatbot', desc: 'An AI-powered legal chatbot designed to help users navigate Ethiopian law by providing accessible, conversational answers to legal questions using relevant legal documents and information.', lang: 'PYTHON','HTML': 'CSS' },
+    { name: 'Sentinel AI', desc: 'Sentinel AI is an intelligent monitoring and threat detection platform that uses AI to identify suspicious activity, detect potential security threats, and provide real-time insights to help users respond to risks faster.', lang: 'TYPESCRIPT', lang: 'JAVASCRIPT'},
+    { name: 'Market Price Predictor', desc: 'A data-driven forecasting platform that analyzes historical market trends and relevant data to predict potential price movements, helping users make more informed market decisions.', lang: 'REACT.JS', 'TAILWIND CSS': 'PYTHON' },
   ];
   const topProjects = deploymentSpecs.map(spec => {
     const repo = repos.find(r => r.name.toLowerCase() === spec.name.toLowerCase());
@@ -131,7 +141,7 @@ function processData(user) {
   };
 }
 
-function generateSVG(data) {
+function generateSVG(data, bannerData) {
   const W = 800;
   const heroH = 280;
   const techH = 70;
@@ -139,9 +149,10 @@ function generateSVG(data) {
   const langH = 200;
   const calH = 160;
   const projH = 240;
+  const aboutH = 270;
   const footerH = 40;
   const gap = 14;
-  const totalH = heroH + techH + statsH + langH + calH + projH + footerH + gap * 6;
+  const totalH = heroH + techH + statsH + langH + calH + projH + aboutH + footerH + gap * 7;
   const font = `'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif`;
 
   let y = 0;
@@ -248,7 +259,7 @@ function generateSVG(data) {
   // ═══════════════ TECH STACK ═══════════════
   const techStack = (() => {
     const baseY = y;
-    const techs = ['C', 'C++', 'x86 ASM', 'Python', 'JavaScript', 'Rust', 'GLSL', 'OpenGL'];
+    const techs = ['PHP', 'C++', 'React.js', 'Python', 'JavaScript', 'C#', 'Java', 'OpenAI'];
     const colors = ['#7ee7ff', '#e8c8ff', '#ff88cc', '#7ee7ff', '#e8c8ff', '#ff88cc', '#e8c8ff', '#7ee7ff'];
     let pills = '';
     // Calculate total width first to center them
@@ -451,6 +462,28 @@ function generateSVG(data) {
   })();
   y += projH;
 
+  // ═══════════════ ABOUT ═══════════════
+  const about = (() => {
+    const baseY = y;
+    return `
+    <g>
+      <line x1="28" y1="${baseY}" x2="772" y2="${baseY}" stroke="rgba(255,111,145,0.18)" stroke-width="0.8"/>
+      <ellipse class="g-dr" cx="650" cy="${baseY+90}" rx="180" ry="95" fill="url(#g4)" opacity="0.35"/>
+      <clipPath id="about-banner-clip"><rect x="525" y="${baseY+20}" width="230" height="230" rx="16"/></clipPath>
+      <image href="data:image/png;base64,${bannerData}" x="525" y="${baseY+20}" width="230" height="230" preserveAspectRatio="xMidYMid meet" opacity="0.95" clip-path="url(#about-banner-clip)"/>
+      <text x="40" y="${baseY+24}" font-family="${font}" font-size="10" fill="rgba(126,231,255,0.85)" letter-spacing="4" font-weight="800">ABOUT ME</text>
+      <text x="40" y="${baseY+58}" font-family="${font}" font-size="10" fill="rgba(235,235,250,0.9)">I am a software developer who enjoys turning "what if?" into "let's build it."</text>
+      <text x="40" y="${baseY+84}" font-family="${font}" font-size="10" fill="rgba(205,205,230,0.82)">I spend my time experimenting with code, breaking things, and figuring out why they broke.</text>
+      <text x="40" y="${baseY+110}" font-family="${font}" font-size="10" fill="rgba(205,205,230,0.82)">I occasionally pretend the first solution was intentional. &#x1F605;</text>
+      <text x="40" y="${baseY+136}" font-family="${font}" font-size="10" fill="rgba(205,205,230,0.82)">I am interested in modern frameworks, software engineering, and building applications</text>
+      <text x="40" y="${baseY+162}" font-family="${font}" font-size="10" fill="rgba(205,205,230,0.82)">that solve real problems, not just projects that look good in a tutorial.</text>
+      <text x="40" y="${baseY+188}" font-family="${font}" font-size="10" fill="rgba(205,205,230,0.82)">I explore how systems work under the hood and learn new technologies hands-on.</text>
+      <text x="40" y="${baseY+214}" font-family="${font}" font-size="10" fill="rgba(205,205,230,0.82)">My GitHub is a development lab: projects, experiments, lessons learned, and stubborn bugs.</text>
+      <text x="40" y="${baseY+244}" font-family="${font}" font-size="12" fill="rgba(255,209,102,0.9)" font-weight="700" letter-spacing="1">CODE WITH PURPOSE. BUILD WITH IMPACT.</text>
+    </g>`;
+  })();
+  y += aboutH + gap;
+
   // ═══════════════ FINAL SVG ═══════════════
   return `<!-- T.Motseki Profile | Generated ${new Date().toISOString()} -->
 <svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${totalH}" viewBox="0 0 ${W} ${totalH}">
@@ -465,6 +498,7 @@ ${statsBlock}
 ${langs}
 ${calendar}
 ${projects}
+${about}
 <text x="400" y="${totalH-16}" text-anchor="middle" font-family="${font}" font-size="8.5" fill="rgba(255,159,104,0.55)" font-weight="600" letter-spacing="2">T.Motseki \u2022 SOFTWARE DEVELOPER</text>
 </svg>`;
 }
@@ -483,16 +517,16 @@ function mockData() {
   return {
     stats: { totalStars: 12, totalForks: 5, totalRepos: 24, totalCommits: 847 },
     languages: [
-      { name: 'C', color: '#a8d8ff', percentage: 14 },
+      { name: 'PHP', color: '#036bc0', percentage: 14 },
       { name: 'C#', color: '#72c7ff', percentage: 9 },
       { name: 'C++', color: '#ff6f91', percentage: 14 },
       { name: 'PYTHON', color: '#ffd166', percentage: 14 },
       { name: 'JAVASCRIPT', color: '#f7d154', percentage: 12 },
-      { name: 'JAVA', color: '#ff9f68', percentage: 8 },
-      { name: 'RUST', color: '#ff8fa3', percentage: 8 },
-      { name: 'TYPESCRIPT', color: '#72c7ff', percentage: 9 },
+      { name: 'JAVA', color: '#fc7629', percentage: 8 },
+      { name: 'NEXT.JS', color: '#f75d79', percentage: 8 },
+      { name: 'TYPESCRIPT', color: '#07304b', percentage: 9 },
       { name: 'TAILWIND CSS', color: '#63d7d0', percentage: 6 },
-      { name: 'REACT.JS', color: '#8be9fd', percentage: 6 },
+      { name: 'REACT.JS', color: '#03723e', percentage: 6 },
     ],
     topProjects: [
       { name: 'Ethiopian Legal Chatbot', desc: 'Accessible legal guidance powered by conversational AI', stars: 0, forks: 0, lang: 'PYTHON', langColor: '#ff6f91' },
@@ -514,10 +548,15 @@ const token = process.env.GITHUB_TOKEN;
     try {
       const user = await fetchData(username, token);
       console.log(`  Account created: ${user.createdAt}`);
-      const allTimeCommits = await fetchAllTimeCommits(username, token, user.createdAt);
-      console.log(`  All-time commits: ${allTimeCommits}`);
-      user._allTimeCommits = allTimeCommits;
       data = processData(user);
+      try {
+        const allTimeCommits = await fetchAllTimeCommits(username, token, user.createdAt);
+        console.log(`  All-time commits: ${allTimeCommits}`);
+        data.stats.totalCommits = allTimeCommits;
+      } catch (e) {
+        console.error(`All-time commit totals unavailable: ${e.message}`);
+        console.log(`  Using current contribution total: ${data.stats.totalCommits}`);
+      }
     } catch (e) {
       console.error(`Error: ${e.message}`);
       data = mockData();
@@ -527,10 +566,11 @@ const token = process.env.GITHUB_TOKEN;
     data = mockData();
   }
 
-  const svg = generateSVG(data);
-
   const fs = await import('node:fs');
   const path = await import('node:path');
+  const bannerPath = path.resolve(process.cwd(), '.github/assets/Banner1.png');
+  const bannerData = fs.readFileSync(bannerPath).toString('base64');
+  const svg = generateSVG(data, bannerData);
   const outDir = path.resolve(process.cwd(), '.github/assets');
   fs.mkdirSync(outDir, { recursive: true });
   const outPath = path.join(outDir, 'profile.svg');
