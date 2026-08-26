@@ -33,7 +33,7 @@ jobs:
 
       - name: Set README to single profile SVG
         run: |
-          printf '<p align="center">\n  <img src="https://komarev.com/ghpvc/?username=Thato-Motseki&label=Profile%%20views&color=ff6f91&style=flat" alt="T.Motseki" />\n</p>\n\n<img align="right" width="55%%" src="./.github/assets/Banner1.png" alt="T.Motseki banner" />\n\n<h1>T.Motseki</h1>\n<p><strong>Software Developer</strong><br />Build. Break. Learn. Improve</p>\n<p><a href="https://github.com/Thato-Motseki">GitHub</a> · <a href="https://www.linkedin.com/in/thato-motseki">LinkedIn</a></p>\n\n<br clear="both" />\n\n![T.Motseki Profile](./.github/assets/profile.svg)\n' > README.md
+          printf '<p align="center">\n  <img src="https://komarev.com/ghpvc/?username=Thato-Motseki&label=Profile%%20views&color=ff6f91&style=flat" alt="T.Motseki" />\n</p>\n\n![T.Motseki Profile](./.github/assets/profile.svg)\n' > README.md
 
       - name: Commit and push
         run: |

@@ -236,7 +236,11 @@ function generateSVG(data) {
       <line x1="260" y1="${cy+10}" x2="540" y2="${cy+10}" stroke="rgba(99,215,208,0.3)" stroke-width="1" filter="url(#glow)"/>
       <text x="400" y="${cy+35}" text-anchor="middle" font-family="${font}" font-size="10" fill="rgba(255,209,102,0.9)" letter-spacing="3" font-weight="600">BUILD. BREAK. LEARN. IMPROVE</text>
       <text x="400" y="${cy+60}" text-anchor="middle" font-family="${font}" font-size="9.5" fill="rgba(168,216,255,0.72)" letter-spacing="2" font-weight="500">AI  \u2022  FULL-STACK  \u2022  SYSTEMS</text>
-      <text x="400" y="${cy+85}" text-anchor="middle" font-family="${font}" font-size="9" fill="rgba(100,100,140,0.5)" letter-spacing="1.5">github.com/Thato-Motseki</text>
+      <g font-family="${font}" font-size="9" font-weight="600" letter-spacing="1.5" text-anchor="middle">
+        <a href="https://github.com/Thato-Motseki" target="_blank"><text x="350" y="${cy+85}" fill="rgba(126,231,255,0.72)">GITHUB</text></a>
+        <text x="400" y="${cy+85}" fill="rgba(100,100,140,0.5)">•</text>
+        <a href="https://www.linkedin.com/in/thato-motseki" target="_blank"><text x="450" y="${cy+85}" fill="rgba(232,200,255,0.72)">LINKEDIN</text></a>
+      </g>
     </g>`;
   })();
   y += heroH + gap;
